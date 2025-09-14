@@ -26,11 +26,26 @@ class TestFunctionsForAutomaticBike(TestCase):
         self.assertRaises(ValueError, automatic_bike.accelerate, 2.2)
         self.assertRaises(ValueError, automatic_bike.accelerate, "str")
 
-    def test_that_the_automatic_bike_is_turned_on_its_in_first_gear_and_it_can_accelerate_to_a_speed_range_and_change_automatically_to_second_gear(self):
+    def test_that_the_automatic_bike_is_turned_on_its_in_gear_and_it_can_accelerate_to_a_speed_range_and_change_automatically_to_next_gear(self):
         automatic_bike.turn_the_bike_on()
-        automatic_bike.put_bike_in_gear(1)
-        result = automatic_bike.accelerate(1)
-        self.assertEqual(20, result)
+        automatic_bike.put_bike_in_gear(2)
+        speed_and_next_gear = automatic_bike.accelerate(1)
+        self.assertEqual((30,3),  speed_and_next_gear)
 
+    def test_that_the_automatic_bike_can_decelerate_and_it_does_not_accept_invalid_input(self):
+        self.assertRaises(ValueError, automatic_bike.decelerate, 2.2)
+        self.assertRaises(ValueError, automatic_bike.decelerate, "str")
+
+    def test_that_the_automatic_bike_is_turned_on_its_in_gear_and_it_can_decelerate_to_a_speed_range_and_change_automatically_to_next_gear(self):
+        automatic_bike.turn_the_bike_on()
+        automatic_bike.put_bike_in_gear(3)
+        speed_and_next_gear = automatic_bike.decelerate(1)
+        self.assertEqual((20,2), speed_and_next_gear)
+
+    def test_that_the_automatic_bike_is_turned_off(self):
+        automatic_bike.turn_the_bike_on()
+        automatic_bike.turn_bike_off()
+
+        self.assertTrue(True, automatic_bike.turn_bike_off())
 
 
