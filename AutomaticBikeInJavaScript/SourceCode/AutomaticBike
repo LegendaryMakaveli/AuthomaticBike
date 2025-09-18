@@ -1,0 +1,45 @@
+let ignition = false;
+let currentGear = 0;
+let currentSpeeds = 0;
+
+function power() {
+    return ignition;
+}
+
+function switchPower() {
+    if(ignition == false) {
+        ignition = true;
+    } else {
+        ignition = false;
+    }
+}
+
+function currentGears(putIntoGear) {
+    if(ignition == false && putIntoGear == 1 && putIntoGear == 2 && putIntoGear == 3 && putIntoGear == 4) {
+        Error("Cannot increase gear when bike is off");
+    }
+    if(putIntoGear < 1 || putIntoGear > 4) {
+        Error("Gear must be between 1 and 4");
+    }
+   if(ignition && putIntoGear > 0 && putIntoGear < 5) {   
+        currentGear = putIntoGear;
+        return currentGear;
+   }else {
+        return undefined;
+   }
+}
+
+function currentSpeed(speed) {
+    if (ignition == false || (currentGear < 1 || currentGear > 4)) {
+    throw new Error("Cannot increase speed");
+}
+    if(speed < 0 )throw new Error("Cannot increase speed");
+    currentSpeeds += speed;
+    if(currentSpeeds >= 41) currentGear = 4;
+    if(currentSpeeds >= 31 && currentSpeeds < 41) currentGear = 3;
+    if(currentSpeeds >= 21 && currentSpeeds < 31) currentGear = 2;
+    if(currentSpeeds >= 0 && currentSpeeds < 21) currentGear = 1;
+
+    return currentSpeeds; 
+}
+module.exports = { power, switchPower, currentGears, currentSpeed,};
